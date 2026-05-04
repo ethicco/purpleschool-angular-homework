@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-size: 16px;
+  line-height: 1;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: #fff;
+}
+
+body {
+  min-height: 100vh;
+  background-color:  #09090F;
+  display: flex;
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
