@@ -1,6 +1,12 @@
 <div class="layout__wrapper">
   <header class="header">
-    <img ngSrc="/images/logo.svg" alt="logo" width="117" height="29" />
+    <img
+      class="logo"
+      ngSrc="/images/logo.svg"
+      alt="logo"
+      width="117"
+      height="29"
+      routerLink="/private" />
     <nav class="navigation">
       @for (menuItem of menuItems; track menuItem.id) {
         <app-nav-button
