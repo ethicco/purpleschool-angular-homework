@@ -4,6 +4,7 @@ import { LogInComponent } from './public/pages/log-in/log-in.component';
 import { PrivateLayoutComponent } from './private/layout/layout.component';
 import { HomeComponent } from './private/page/home/home.component';
 import { FavoritesComponent } from './private/page/favorites/favorites.component';
+import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -14,11 +15,16 @@ export const routes: Routes = [
         path: 'log-in',
         component: LogInComponent,
       },
+      {
+        path: '**',
+        redirectTo: 'log-in',
+      },
     ],
   },
   {
     path: 'private',
     component: PrivateLayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'home',
