@@ -1,0 +1,8 @@
+<button class="nav__button" type="button" (click)="onClick($event)">
+  @if (isActive) {
+    <img [ngSrc]="iconUrlActive" [alt]="title" width="24" height="24" />
+  } @else {
+    <img [ngSrc]="iconUrl" [alt]="title" width="24" height="24" />
+  }
+  {{ title }}
+</button>

@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { InputComponent } from '../../shared/components/input/input.component';
-import { ButtonComponent } from '../../shared/components/button/button.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-public-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
   standalone: true,
-  imports: [InputComponent, ButtonComponent],
+  imports: [RouterOutlet],
 })
-export class LayoutComponent {
-  onSubmit() {
-    console.log('click');
-  }
-}
+export class PublicLayoutComponent {}

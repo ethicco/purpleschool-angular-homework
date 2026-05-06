@@ -1,0 +1,20 @@
+:host {
+  width: 100%;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0 2rem
+}
+
+.navigation {
+  display: flex;
+  gap: 3.5rem;
+}
