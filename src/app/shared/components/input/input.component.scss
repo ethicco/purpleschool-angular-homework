@@ -1,0 +1,37 @@
+.form__control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgba(118, 118, 128, 0.12);
+  height: 3.25rem;
+  width: 100%;
+  max-width: 22.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.875rem;
+  transition: outline 0.15s ease;
+
+  &:focus-within {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 2px;
+  }
+}
+
+.form__input {
+  width: 100%;
+  min-height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+.form__button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
