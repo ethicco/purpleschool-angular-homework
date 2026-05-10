@@ -1,0 +1,27 @@
+<div class="layout__wrapper">
+  <header class="header">
+    <img
+      class="logo"
+      ngSrc="/images/logo.svg"
+      alt="logo"
+      width="117"
+      height="29"
+      routerLink="/private" />
+    <nav class="navigation">
+      @for (menuItem of menuItems; track menuItem.id) {
+        <app-nav-button
+          [title]="menuItem.title"
+          [iconUrl]="menuItem.iconUrl"
+          [iconUrlActive]="menuItem.iconUrlActive"
+          [routerLink]="menuItem.link"
+          routerLinkActive="active"></app-nav-button>
+      }
+    </nav>
+  </header>
+  <div class="layout__content">
+    <div>Filter</div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
