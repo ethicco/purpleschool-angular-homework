@@ -1,0 +1,25 @@
+@if (movie) {
+  <div class="card__wrapper">
+    <button class="card__button--favorite" (click)="onFavoriteToggle()">
+      <ng-container
+        *appIcon="
+          movie.isFavorite;
+          url: '/card/favorite.svg';
+          activeUrl: '/card/favorite-active.svg';
+          let src
+        ">
+        <img [ngSrc]="src" alt="favorite" width="24" height="24" />
+      </ng-container>
+    </button>
+    <div class="card__content">
+      <img
+        class="card__poster"
+        [ngSrc]="movie.posterUrl"
+        [alt]="movie.title"
+        width="220"
+        height="326" />
+      <h2 class="card__title">{{ movie.title }}</h2>
+      <app-rating [rating]="movie.rating"></app-rating>
+    </div>
+  </div>
+}

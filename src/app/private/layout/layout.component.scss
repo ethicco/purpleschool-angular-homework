@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-.wrapper {
+.layout__wrapper {
   width: 100%;
 }
 
@@ -21,4 +21,22 @@
 .navigation {
   display: flex;
   gap: 3.5rem;
+}
+
+.layout__content {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+}
+
+.layout__sidebar {
+  width: 100%;
+  min-width: 16.125rem;
+  max-width: 16.125rem;
+  padding: 0.5rem 1rem;
+}
+
+.layout__main {
+  width: 100%;
+  padding: 0.5rem 1rem;
 }
