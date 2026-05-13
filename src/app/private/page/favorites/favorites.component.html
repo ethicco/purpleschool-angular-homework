@@ -1,1 +1,14 @@
-Favorites
+<div class="favorites__container">
+  <div class="favorites__content">
+    <p class="favorites__title">Избранное</p>
+    <p class="favorites__subtitle">Найдено {{ favorites.length }} фильмов</p>
+    <div class="favorites__cards">
+      @for (favorite of favorites; track favorite.id) {
+        <app-card
+          [movie]="favorite"
+          (clickedFavorite)="onFavoriteChange(favorite.id)"
+          [isFavorite]="favorite.isFavorite"></app-card>
+      }
+    </div>
+  </div>
+</div>

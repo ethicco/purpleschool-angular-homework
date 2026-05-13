@@ -40,3 +40,35 @@
   width: 100%;
   padding: 0.5rem 1rem;
 }
+
+.layout__genres {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.layout__genre {
+  margin-bottom: 0.5rem;
+}
+
+.layout__genre--radio {
+  width: 1.5rem;
+  height: 1.5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 50%;
+  border: 2px solid rgba(118, 118, 128, 0.3);
+  background-color: rgba(118, 118, 128, 0.12);
+  cursor: pointer;
+
+  &:checked {
+    background-color: rgba(255, 200, 55, 1);
+    border: 0.25rem solid rgb(37, 37, 37);
+    box-shadow: 0 0 0 0.125rem rgba(118, 118, 128);
+  }
+}
+
+.layout__genre--label {
+  margin-left: 0.5rem;
+}
