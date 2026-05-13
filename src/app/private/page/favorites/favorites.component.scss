@@ -1,0 +1,20 @@
+.favorites__title {
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.favorites__subtitle {
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: #A0A0A0;
+}
+
+.favorites__cards {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+  margin-top: 1.875rem;
+  padding: 1rem 0;
+}
