@@ -1,0 +1,37 @@
+.card__wrapper {
+  position: relative;
+}
+
+.card__button--favorite {
+  position: absolute;
+  top: -1rem;
+  right: -1.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  background: rgba(10, 10, 16, 0.4);
+  border-radius: 1rem;
+  border: 1px solid;
+  border-image-source: linear-gradient(91.33deg, rgba(255, 255, 255, 0.08) 1.08%, rgba(255, 255, 255, 0.04) 48.1%, rgba(255, 255, 255, 0.08) 100%);
+  backdrop-filter: blur(6px);
+  padding: 0.875rem;
+  cursor: pointer;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__poster {
+  border-radius: 1.875rem;
+}
+
+.card__title {
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin: 1rem 0 0.5rem;
+}

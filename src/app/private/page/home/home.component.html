@@ -1,1 +1,19 @@
-Home
+<div class="home__container">
+  @if (!!search.length) {
+    <div class="home__content">
+      <p class="home__title">Результаты поиска</p>
+      <p class="home__subtitle">Найдено {{ movies.length }} фильмов</p>
+      <div class="home__cards">
+        @for (movie of movies; track movie.id) {
+          <app-card
+            [movie]="movie"
+            (clickedFavorite)="onFavoriteChange(movie.id)"
+            [isFavorite]="movie.isFavorite"></app-card>
+        }
+      </div>
+    </div>
+  } @else {
+    <p class="home__title">Привет!</p>
+    <p class="home__subtitle">Найди фильм на вечер</p>
+  }
+</div>

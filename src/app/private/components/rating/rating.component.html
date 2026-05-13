@@ -1,0 +1,10 @@
+<div class="rating__wrapper">
+  @for (active of stars; track $index) {
+    <img
+      [src]="active ? '/rating/rating-active.svg' : '/rating/rating.svg'"
+      alt="star"
+      width="24"
+      height="24"
+      class="rating__star" />
+  }
+</div>
