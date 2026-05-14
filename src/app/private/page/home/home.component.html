@@ -1,14 +1,15 @@
+@let movies = movies$ | async;
 <div class="home__container">
-  @if (!!search.length) {
+  @if (!!search().length) {
     <div class="home__content">
       <p class="home__title">Результаты поиска</p>
-      <p class="home__subtitle">Найдено {{ movies.length }} фильмов</p>
+      <p class="home__subtitle">Найдено {{ movies?.length ?? 0 }} фильмов</p>
       <div class="home__cards">
-        @for (movie of movies; track movie.id) {
+        @for (movie of movies ?? []; track movie.id) {
           <app-card
             [movie]="movie"
-            (clickedFavorite)="onFavoriteChange(movie.id)"
-            [isFavorite]="movie.isFavorite"></app-card>
+            [isFavorite]="movie.isFavorite"
+            (clickedFavorite)="onFavoriteChange(movie.id)"></app-card>
         }
       </div>
     </div>

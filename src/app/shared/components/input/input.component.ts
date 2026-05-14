@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, linkedSignal, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 export enum EPasswordInputIcons {
@@ -15,27 +15,31 @@ export enum EPasswordInputIcons {
   imports: [FormsModule, CommonModule, NgOptimizedImage],
 })
 export class InputComponent {
-  @Input() type: 'text' | 'email' | 'password' = 'text';
-  @Input() value = '';
-  @Input() placeholder = '';
-  @Input() disabled = false;
-  @Input() iconUrl: string | null = null;
-  @Input() isPassword: boolean | null = false;
-  @Input() showButton = false;
+  readonly type = input<'text' | 'email' | 'password'>('text');
+  readonly value = input('');
+  placeholder = input('');
+  disabled = input(false);
+  iconUrl = input<string | null>(null);
+  isPassword = input<boolean | null>(false);
+  showButton = input(false);
+
+  currentType = linkedSignal(() => this.type());
+  currentValue = linkedSignal(() => this.value());
+
   buttonIcon = EPasswordInputIcons.Closed;
-  @Output() controlValue: EventEmitter<string> = new EventEmitter<string>();
+  controlValue = output<string>();
 
   onChangeValue(value: string) {
-    this.value = value;
+    this.currentValue.set(value);
     this.controlValue.emit(value);
   }
 
   onButtonToggleClick(): void {
-    if (this.type === 'password') {
-      this.type = 'text';
+    if (this.currentType() === 'password') {
+      this.currentType.set('text');
       this.buttonIcon = EPasswordInputIcons.Opened;
     } else {
-      this.type = 'password';
+      this.currentType.set('password');
       this.buttonIcon = EPasswordInputIcons.Closed;
     }
   }

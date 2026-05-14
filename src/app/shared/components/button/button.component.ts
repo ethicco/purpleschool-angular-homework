@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -7,8 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   standalone: true,
 })
 export class ButtonComponent {
-  @Input() title = '';
-  @Output() controlSubmit: EventEmitter<void> = new EventEmitter<void>();
+  title = input('');
+  controlSubmit = output<void>();
 
   onSubmit() {
     this.controlSubmit.emit();

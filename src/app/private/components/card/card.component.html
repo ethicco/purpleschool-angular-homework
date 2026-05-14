@@ -1,9 +1,9 @@
-@if (movie) {
+@if (movie()) {
   <div class="card__wrapper">
     <button class="card__button--favorite" (click)="onFavoriteToggle()">
       <ng-container
         *appIcon="
-          movie.isFavorite;
+          movie()!.isFavorite;
           url: '/card/favorite.svg';
           activeUrl: '/card/favorite-active.svg';
           let src
@@ -14,12 +14,12 @@
     <div class="card__content">
       <img
         class="card__poster"
-        [ngSrc]="movie.posterUrl"
-        [alt]="movie.title"
+        [ngSrc]="movie()!.posterUrl"
+        [alt]="movie()!.title"
         width="220"
         height="326" />
-      <h2 class="card__title">{{ movie.title }}</h2>
-      <app-rating [rating]="movie.rating"></app-rating>
+      <h2 class="card__title">{{ movie()!.title }}</h2>
+      <app-rating [rating]="movie()!.rating"></app-rating>
     </div>
   </div>
 }

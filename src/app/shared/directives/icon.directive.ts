@@ -1,58 +1,47 @@
 import {
   Directive,
   EmbeddedViewRef,
+  effect,
   inject,
-  Input,
-  OnChanges,
-  OnInit,
+  input,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
 
 interface AppIconContext {
   $implicit: string;
-  active: boolean | null;
+  active: boolean;
 }
 
 @Directive({
   selector: '[appIcon]',
   standalone: true,
 })
-export class IconDirective implements OnChanges, OnInit {
-  @Input('appIcon') isActive: boolean | null = null;
-  @Input('appIconUrl') url: string | null = null;
-  @Input('appIconActiveUrl') activeUrl: string | null = null;
+export class IconDirective {
+  isActive = input<boolean | null>(null, { alias: 'appIcon' });
+  url = input<string | null>(null, { alias: 'appIconUrl' });
+  activeUrl = input<string | null>(null, { alias: 'appIconActiveUrl' });
 
-  private templateRef: TemplateRef<AppIconContext> =
-    inject<TemplateRef<AppIconContext>>(TemplateRef);
-  private viewContainer: ViewContainerRef = inject(ViewContainerRef);
+  private templateRef = inject<TemplateRef<AppIconContext>>(TemplateRef);
+  private viewContainer = inject(ViewContainerRef);
   private viewRef?: EmbeddedViewRef<AppIconContext>;
 
-  ngOnInit(): void {
-    this.createOrUpdateView();
-  }
-
-  ngOnChanges(): void {
-    this.createOrUpdateView();
+  constructor() {
+    effect(() => {
+      this.createOrUpdateView();
+    });
   }
 
   private createOrUpdateView(): void {
-    const current = (this.isActive ? this.activeUrl : null) ?? this.url ?? '';
-
-    const ctx = {
-      $implicit: current,
-      active: !!this.isActive,
-    };
+    const current = (this.isActive() ? this.activeUrl() : null) ?? this.url() ?? '';
+    const ctx: AppIconContext = { $implicit: current, active: !!this.isActive() };
 
     if (!this.viewRef) {
       this.viewContainer.clear();
-      this.viewRef = this.viewContainer.createEmbeddedView(
-        this.templateRef,
-        ctx
-      );
+      this.viewRef = this.viewContainer.createEmbeddedView(this.templateRef, ctx);
     } else {
       this.viewRef.context.$implicit = current;
-      this.viewRef.context.active = !!this.isActive;
+      this.viewRef.context.active = !!this.isActive();
       this.viewRef.markForCheck();
     }
   }

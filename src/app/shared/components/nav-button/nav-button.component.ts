@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, input, output, inject, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLinkActive } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,12 +10,11 @@ import { Subscription } from 'rxjs';
   imports: [NgOptimizedImage],
 })
 export class NavButtonComponent implements AfterViewInit, OnDestroy {
-  @Input() title = '';
-  @Input() link = '';
-  @Input() iconUrl = '';
-  @Input() iconUrlActive = '';
-  @Input() disabled = false;
-  @Output() clicked: EventEmitter<Event> = new EventEmitter<Event>();
+  title = input('');
+  iconUrl = input('');
+  iconUrlActive = input('');
+  disabled = input(false);
+  clicked = output<Event>();
 
   isActive = false;
 
@@ -36,7 +35,7 @@ export class NavButtonComponent implements AfterViewInit, OnDestroy {
   }
 
   onClick(event: Event) {
-    if (!this.disabled) {
+    if (!this.disabled()) {
       this.clicked.emit(event);
     }
   }
