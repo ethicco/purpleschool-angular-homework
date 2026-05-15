@@ -1,25 +1,25 @@
 <div class="form__control">
-  @if (iconUrl) {
+  @if (iconUrl()) {
     <img
       class="form__icon"
-      [ngSrc]="iconUrl"
-      [alt]="type"
+      [ngSrc]="iconUrl()!"
+      [alt]="currentType()"
       width="24"
       height="24" />
   }
   <input
     class="form__input"
-    [type]="type"
-    [(ngModel)]="value"
-    [placeholder]="placeholder"
-    [disabled]="disabled"
-    (input)="onChangeValue($event.target.value)" />
-  @if (showButton) {
+    [type]="currentType()"
+    [ngModel]="currentValue()"
+    [placeholder]="placeholder()"
+    [disabled]="disabled()"
+    (ngModelChange)="onChangeValue($event)" />
+  @if (showButton()) {
     <button type="button" class="form__button" (click)="onButtonToggleClick()">
       <img
         class="form__button--icon"
         [ngSrc]="buttonIcon"
-        [alt]="type"
+        [alt]="currentType()"
         width="16"
         height="16" />
     </button>
