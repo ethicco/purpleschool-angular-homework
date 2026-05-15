@@ -1,26 +1,31 @@
-import { Component } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
-import { BehaviorSubject, of, switchMap } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { IMovie } from '../../../shared/models/movie.model';
-import { FAVORITES } from '../../../shared/const/fake-favorites.const';
+import { Component, inject, OnInit, Signal } from '@angular/core';
 import { CardComponent } from '../../components/card/card.component';
+import { FavoritesService } from './services/favorites.service';
+import { IMovie } from '../../../shared/models/movie.model';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
   standalone: true,
-  imports: [CardComponent, AsyncPipe],
+  imports: [CardComponent],
+  providers: [FavoritesService],
 })
-export class FavoritesComponent {
-  private favoritesState = new BehaviorSubject<IMovie[]>(FAVORITES);
-  favorites$ = of(null).pipe(
-    delay(500),
-    switchMap(() => this.favoritesState),
+export class FavoritesComponent implements OnInit {
+  private readonly favoritesService: FavoritesService =
+    inject(FavoritesService);
+
+  favoritesList: Signal<IMovie[] | undefined> = toSignal(
+    this.favoritesService.movies$,
+    { initialValue: [] }
   );
 
+  ngOnInit(): void {
+    this.favoritesService.loadMovies();
+  }
+
   onFavoriteChange(id: string) {
-    this.favoritesState.next(this.favoritesState.value.filter(f => f.id !== id));
+    this.favoritesService.onFavoriteChange(id);
   }
 }

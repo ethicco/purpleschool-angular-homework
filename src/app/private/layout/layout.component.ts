@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   RouterOutlet,
   RouterLinkWithHref,
   RouterLinkActive,
 } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { IMenu, MENU_CONST } from '../const/menu-items.const';
 import { NavButtonComponent } from '../../shared/components/nav-button/nav-button.component';
-import { IGenre } from '../../shared/models/genere.model';
-import { GENRES } from '../../shared/const/generes.const';
+import { LayoutService } from './services/layout.service';
 
 @Component({
   selector: 'app-private-layout',
@@ -22,8 +22,15 @@ import { GENRES } from '../../shared/const/generes.const';
     RouterLinkWithHref,
     RouterLinkActive,
   ],
+  providers: [LayoutService],
 })
-export class PrivateLayoutComponent {
+export class PrivateLayoutComponent implements OnInit {
+  private readonly layoutService: LayoutService = inject(LayoutService);
+
   menuItems: IMenu[] = MENU_CONST;
-  genres: IGenre[] = GENRES;
+  genres = toSignal(this.layoutService.genres$, { initialValue: [] });
+
+  ngOnInit(): void {
+    this.layoutService.loadGenres();
+  }
 }

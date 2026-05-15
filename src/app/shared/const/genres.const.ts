@@ -1,4 +1,4 @@
-import { IGenre } from '../models/genere.model';
+import { IGenre } from '../models/genre.model';
 
 export const GENRES: IGenre[] = [
   { id: 0, name: 'Все', slug: 'all' },
