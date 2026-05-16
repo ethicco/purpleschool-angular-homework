@@ -8,9 +8,4 @@
   font-size: 0.875rem;
   background-color: #D89C00;
   cursor: pointer;
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 }

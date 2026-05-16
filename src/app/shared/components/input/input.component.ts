@@ -1,12 +1,6 @@
-import { NgOptimizedImage } from '@angular/common';
-import {
-  Component,
-  forwardRef,
-  input,
-  linkedSignal,
-  signal,
-} from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Component, input, linkedSignal, output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 export enum EPasswordInputIcons {
   Opened = 'icons/eye-opened.svg',
@@ -18,55 +12,26 @@ export enum EPasswordInputIcons {
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
   standalone: true,
-  imports: [NgOptimizedImage],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
-      multi: true,
-    },
-  ],
+  imports: [FormsModule, CommonModule, NgOptimizedImage],
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent {
   readonly type = input<'text' | 'email' | 'password'>('text');
-  readonly placeholder = input('');
-  readonly prefixIconUrl = input<string | null>(null);
-  readonly suffixIconUrl = input<string | null>(null);
-  readonly showButton = input(false);
+  readonly value = input('');
+  placeholder = input('');
+  disabled = input(false);
+  iconUrl = input<string | null>(null);
+  isPassword = input<boolean | null>(false);
+  showButton = input(false);
 
-  readonly currentType = linkedSignal(() => this.type());
-  readonly currentValue = signal('');
-  readonly isDisabled = signal(false);
+  currentType = linkedSignal(() => this.type());
+  currentValue = linkedSignal(() => this.value());
 
   buttonIcon = EPasswordInputIcons.Closed;
+  controlValue = output<string>();
 
-  private onChange: (value: string) => void = () => { return; };
-  private onTouched: () => void = () => { return; };
-
-  writeValue(value: string): void {
-    this.currentValue.set(value ?? '');
-  }
-
-  registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.isDisabled.set(isDisabled);
-  }
-
-  onInput(event: Event): void {
-    const value = (event.target as HTMLInputElement).value;
+  onChangeValue(value: string) {
     this.currentValue.set(value);
-    this.onChange(value);
-  }
-
-  onBlur(): void {
-    this.onTouched();
+    this.controlValue.emit(value);
   }
 
   onButtonToggleClick(): void {

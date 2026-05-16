@@ -7,11 +7,10 @@ import { Component, input, output } from '@angular/core';
   standalone: true,
 })
 export class ButtonComponent {
-  readonly title = input('');
-  readonly disabled = input(false);
-  readonly controlSubmit = output<void>();
+  title = input('');
+  controlSubmit = output<void>();
 
-  onSubmit(): void {
+  onSubmit() {
     this.controlSubmit.emit();
   }
 }

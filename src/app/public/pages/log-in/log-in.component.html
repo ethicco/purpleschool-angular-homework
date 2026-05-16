@@ -1,48 +1,23 @@
 <div class="form__wrapper">
-  <form class="form__container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form class="form__container">
     <img class="form__logo" src="/images/logo.svg" alt="logo" />
     <h1 class="form__heading">Вход</h1>
     <div class="form__controls">
-      <div class="form__field">
-        <app-input
-          class="form__input"
-          type="email"
-          prefixIconUrl="/icons/user.svg"
-          placeholder="Email"
-          formControlName="email" />
-        @if (emailControl.invalid && emailControl.touched) {
-          <span class="form__error">
-            @if (emailControl.errors?.['required']) {
-              Email обязателен
-            } @else if (emailControl.errors?.['email']) {
-              Некорректный email
-            }
-          </span>
-        }
-      </div>
-      <div class="form__field">
-        <app-input
-          class="form__input"
-          type="password"
-          prefixIconUrl="/icons/lock.svg"
-          placeholder="Пароль"
-          [showButton]="true"
-          formControlName="password" />
-        @if (passwordControl.invalid && passwordControl.touched) {
-          <span class="form__error">
-            @if (passwordControl.errors?.['required']) {
-              Пароль обязателен
-            } @else if (passwordControl.errors?.['minlength']) {
-              Минимум 6 символов
-            }
-          </span>
-        }
-      </div>
+      <app-input
+        class="form__input"
+        type="email"
+        iconUrl="/icons/user.svg"
+        placeholder="Email" />
+      <app-input
+        class="form__input"
+        type="password"
+        [showButton]="true"
+        iconUrl="/icons/lock.svg"
+        placeholder="Пароль" />
     </div>
     <app-button
       class="form__button"
       title="Войти"
-      [disabled]="isSubmitDisabled()"
       (controlSubmit)="onSubmit()" />
   </form>
 </div>
