@@ -1,8 +1,8 @@
 <div class="form__control">
-  @if (iconUrl()) {
+  @if (prefixIconUrl()) {
     <img
       class="form__icon"
-      [ngSrc]="iconUrl()!"
+      [ngSrc]="prefixIconUrl()!"
       [alt]="currentType()"
       width="24"
       height="24" />
@@ -10,16 +10,25 @@
   <input
     class="form__input"
     [type]="currentType()"
-    [ngModel]="currentValue()"
+    [value]="currentValue()"
     [placeholder]="placeholder()"
-    [disabled]="disabled()"
-    (ngModelChange)="onChangeValue($event)" />
+    [disabled]="isDisabled()"
+    (input)="onInput($event)"
+    (blur)="onBlur()" />
+  @if (suffixIconUrl()) {
+    <img
+      class="form__icon"
+      [ngSrc]="suffixIconUrl()!"
+      alt="currentType()"
+      width="24"
+      height="24" />
+  }
   @if (showButton()) {
     <button type="button" class="form__button" (click)="onButtonToggleClick()">
       <img
         class="form__button--icon"
         [ngSrc]="buttonIcon"
-        [alt]="currentType()"
+        alt="currentType()"
         width="16"
         height="16" />
     </button>
