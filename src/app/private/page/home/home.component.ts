@@ -1,31 +1,34 @@
-import { Component, input } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
-import { BehaviorSubject, of, switchMap } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Component, inject, input, OnInit, Signal } from '@angular/core';
 import { IMovie } from '../../../shared/models/movie.model';
-import { MOVIES } from '../../../shared/const/movies.const';
 import { CardComponent } from '../../components/card/card.component';
+import { HomeService } from './services/home.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
-  imports: [CardComponent, AsyncPipe],
+  imports: [CardComponent],
+  providers: [HomeService],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  private readonly homeService = inject(HomeService);
+
   search = input('test');
 
-  private moviesState = new BehaviorSubject<IMovie[]>(MOVIES);
-  movies$ = of(null).pipe(
-    delay(500),
-    switchMap(() => this.moviesState),
+  moviesList: Signal<IMovie[] | undefined> = toSignal(
+    this.homeService.movies$,
+    {
+      initialValue: [],
+    }
   );
 
+  ngOnInit(): void {
+    this.homeService.loadMovies();
+  }
+
   onFavoriteChange(id: string) {
-    const updated = this.moviesState.value.map(movie =>
-      movie.id === id ? { ...movie, isFavorite: !movie.isFavorite } : movie,
-    );
-    this.moviesState.next(updated);
+    this.homeService.onFavoriteChange(id);
   }
 }

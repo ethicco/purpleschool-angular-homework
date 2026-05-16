@@ -1,8 +1,10 @@
-@let favorites = favorites$ | async;
+@let favorites = favoritesList();
 <div class="favorites__container">
   <div class="favorites__content">
     <p class="favorites__title">Избранное</p>
-    <p class="favorites__subtitle">Найдено {{ favorites?.length ?? 0 }} фильмов</p>
+    <p class="favorites__subtitle">
+      Найдено {{ favorites?.length ?? 0 }} фильмов
+    </p>
     <div class="favorites__cards">
       @for (favorite of favorites ?? []; track favorite.id) {
         <app-card

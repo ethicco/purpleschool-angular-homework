@@ -21,7 +21,7 @@
   <div class="layout__content">
     <div class="layout__sidebar">
       <div class="layout__genres">
-        @for (genre of genres; track genre.id) {
+        @for (genre of genres(); track genre.id) {
           <div class="layout__genre">
             <input
               class="layout__genre--radio"
